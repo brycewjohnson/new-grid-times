@@ -1,17 +1,32 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { QUERIES } from '../../constants';
 
 const SecondaryStory = ({ id, title, image, location, abstract }) => {
   return (
-    <a href={`/story/${id}`}>
+    <Link href={`/story/${id}`}>
       <Wrapper>
         <Image alt={image.alt} src={image.src} />
         <Heading>{title}</Heading>
         <Abstract>{abstract}</Abstract>
       </Wrapper>
-    </a>
+    </Link>
   );
 };
+
+const Link = styled.a`
+  border-bottom: 1px solid var(--color-gray-300);
+  padding: 16px 0;
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+`
 
 const Wrapper = styled.article`
   display: grid;
@@ -21,6 +36,11 @@ const Wrapper = styled.article`
   gap: 4px 16px;
   grid-template-columns: 120px 1fr;
   color: var(--color-gray-900);
+
+  @media (${QUERIES.tabletOnly}) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Image = styled.img`
@@ -45,6 +65,10 @@ const Abstract = styled.p`
   grid-area: abstract;
   font-size: 1rem;
   white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 `;
 
 export default SecondaryStory;

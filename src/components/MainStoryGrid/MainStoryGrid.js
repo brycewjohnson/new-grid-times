@@ -12,6 +12,7 @@ import MainStory from '../MainStory';
 import SecondaryStory from '../SecondaryStory';
 import OpinionStory from '../OpinionStory';
 import Advertisement from '../Advertisement';
+import { QUERIES } from '../../constants';
 
 const MainStoryGrid = () => {
   return (
@@ -53,14 +54,51 @@ const Wrapper = styled.div`
     'advertisement';
   gap: 48px;
   margin-bottom: 48px;
+
+  @media (${QUERIES.tabletAndUp}) {
+    gap: 32px 0;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      'main-story secondary-stories'
+      'advertisement advertisement'
+      'opinion-stories opinion-stories';
+  }
+
+  @media (${QUERIES.laptopAndUp}) {
+    gap: 16px 0;
+    grid-template-columns: 4fr 3fr 2fr;
+    grid-template-areas:
+      'main-story secondary-stories opinion-stories'
+      'main-story advertisement advertisement';
+  }
+
 `;
 
 const MainStorySection = styled.section`
   grid-area: main-story;
+
+  @media (${QUERIES.tabletAndUp}) {
+    padding-right: 16px;
+  }
+
+  @media (${QUERIES.laptopAndUp}) {
+    border-right: 1px solid var(--color-gray-300);
+  }
 `;
 
 const SecondaryStorySection = styled.section`
   grid-area: secondary-stories;
+  align-self: flex-start;
+
+  @media (${QUERIES.tabletAndUp}) {
+    padding-left: 16px;
+    border-left: 1px solid var(--color-gray-300);
+  }
+
+  @media (${QUERIES.laptopAndUp}) {
+    padding-right: 16px;
+    border-left: none;
+  }
 `;
 
 const StoryList = styled.div`
@@ -70,10 +108,34 @@ const StoryList = styled.div`
 
 const OpinionSection = styled.section`
   grid-area: opinion-stories;
+
+  @media (${QUERIES.tabletOnly}) {
+    ${StoryList} {
+      flex-direction: row;
+      gap: 32px;
+    }
+    ${StoryList} > * {
+      flex: 1;
+    }
+  }
+
+  @media (${QUERIES.laptopAndUp}) {
+    border-left: 1px solid var(--color-gray-300);
+    padding-left: 16px;
+  }
 `;
 
 const AdvertisementSection = styled.section`
   grid-area: advertisement;
+
+  @media (${QUERIES.laptopAndUp}) {
+    padding-left: 16px;
+
+    & > * {
+      padding-top: 16px;
+      border-top: 1px solid var(--color-gray-300);
+    }
+  }
 `;
 
 export default MainStoryGrid;
